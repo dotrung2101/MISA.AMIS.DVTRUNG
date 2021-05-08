@@ -100,8 +100,11 @@ namespace MISA.AMIS.Core.Services
                 if (requiredProperties.Length > 0)
                 {
                     var propertyValue = property.GetValue(entity);
-
-                    if (string.IsNullOrEmpty(propertyValue.ToString()))
+                    if(propertyValue == null)
+                    {
+                        _listValidate.Add(new { devMsg = (requiredProperties[0] as MISARequiredNotNull).Msg });
+                    }
+                    else if (string.IsNullOrEmpty(propertyValue.ToString()))
                     {
                         _listValidate.Add(new { devMsg = (requiredProperties[0] as MISARequiredNotNull).Msg });
                     }

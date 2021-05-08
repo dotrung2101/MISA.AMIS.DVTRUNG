@@ -30,6 +30,8 @@ namespace MISA.AMIS.Core.Entities
         [MISARequiredNotDuplicate("Số điện thoại đã tồn tại trong hệ thống!!!")]
         public string PhoneNumber { get; set; }
         public string PositionName { get; set; }
+
+        [MISARequiredNotNull("Đơn vị không được phép để trống!!!")]
         public Guid? DepartmentId { get; set; }
         public string TaxCode { get; set; }
         public string Address { get; set; }

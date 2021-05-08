@@ -22,6 +22,11 @@ namespace MISA.AMIS.API.Controllers
         {
             var entities = _baseService.GetAll();
 
+            if(entities == null)
+            {
+                return NoContent();
+            }
+
             if(entities.Count() > 0)
             {
                 return Ok(entities);

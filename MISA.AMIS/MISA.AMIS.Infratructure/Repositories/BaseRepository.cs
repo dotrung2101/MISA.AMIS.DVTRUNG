@@ -93,8 +93,8 @@ namespace MISA.AMIS.Infratructure.Repositories
                 }
             }
         }
-
-        public MISAEntity GetById(Guid id)
+        
+        public MISAEntity GetById(Guid? id)
         {
             using (_dbConnection = new MySqlConnection(_connectionString))
             {

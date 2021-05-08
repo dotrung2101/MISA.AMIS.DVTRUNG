@@ -20,5 +20,24 @@ namespace MISA.AMIS.API.Controllers
             _employeeService = employeeService;
         }
 
+        [HttpGet("paging")]
+        public IActionResult FilterAndPaging(int pageIndex, int pageSize, string fullName, Guid? departmentId)
+        {
+            var employees = _employeeService.FilterAndGetInRange(pageIndex, pageSize, fullName, departmentId);
+
+            if(employees == null)
+            {
+                return NoContent();
+            }
+            else if(employees.Count() <= 0)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(employees);
+            }
+        }
+
     }
 }
