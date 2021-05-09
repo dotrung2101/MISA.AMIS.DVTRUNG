@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using MISA.AMIS.Core.Entities;
 using MISA.AMIS.Core.Interfaces.Services;
 using System;
@@ -10,6 +11,7 @@ namespace MISA.AMIS.API.Controllers
 {
     [Route("api/v1/employees")]
     [ApiController]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class EmployeeController : BaseController<Employee>
     {
 

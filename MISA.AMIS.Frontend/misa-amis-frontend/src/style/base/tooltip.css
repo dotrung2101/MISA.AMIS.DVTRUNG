@@ -1,0 +1,12 @@
+.container-ms-tooltip .ms-tooltip-parent{
+    position: absolute;
+    left: 50%;
+    height: 50%;
+    background: rgb(43, 42, 42);
+    padding: 3px;
+    display: none;
+}
+
+.container-ms-tooltip:hover .ms-tooltip-parent{
+    display: block;
+}

@@ -31,6 +31,8 @@ namespace MISA.AMIS.API
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -39,6 +41,16 @@ namespace MISA.AMIS.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MISA.AMIS.API", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://10.8.35.108:8080",
+                                                          "http://localhost:8080").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
+                                  });
             });
 
             services.AddScoped<IEmployeeService, EmployeeService>();
@@ -60,6 +72,8 @@ namespace MISA.AMIS.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
