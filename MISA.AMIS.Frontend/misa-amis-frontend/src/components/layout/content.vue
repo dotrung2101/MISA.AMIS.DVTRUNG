@@ -38,8 +38,9 @@ export default {
     src: url("../../assets/fonts/notosans-semibold.df3e6dc4.woff2") format("opentype");
   }
 #content{
-    flex: 1;
     background: #f4f5f8;
+    height: calc(100vh - 34px);
+    overflow: hidden;
 }
 .body{
     width: calc(100% - 40px);

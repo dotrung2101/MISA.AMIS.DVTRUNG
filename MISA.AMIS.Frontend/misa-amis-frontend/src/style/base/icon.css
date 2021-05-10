@@ -18,6 +18,13 @@
     min-height: 16px;
 }
 
+.mi-48 {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
 .mi{
     background: url("../../assets/Sprites.64af8f61.svg");
     cursor: pointer;
@@ -141,6 +148,14 @@
 
 .mi-close {
     background-position: -144px -144px;
+}
+
+.mi-exclamation-warning-48 {
+    background-position: -592px -456px;
+}
+
+.mi-refresh-blue {
+    background-position: -1546px -252px;
 }
 
 

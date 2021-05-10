@@ -48,7 +48,7 @@ namespace MISA.AMIS.API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://10.8.35.108:8080",
+                                      builder.WithOrigins("http://192.168.1.86:8080",
                                                           "http://localhost:8080").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
                                   });
             });

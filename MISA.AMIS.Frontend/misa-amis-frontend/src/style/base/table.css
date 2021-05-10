@@ -1,7 +1,6 @@
 
 table {
     border-collapse: collapse;
-    margin-top: 10px;
 }
 
 table thead tr{
@@ -18,19 +17,16 @@ table thead th{
     border-bottom: 1px solid #c7c7c7;
     border-left: 1px solid #c7c7c7;
     min-width: 100px;
+    z-index: 1;
 }
 
 table thead th:first-child{
     max-width: 34px;
     min-width: 34px;
     width: 34px;
-    position: sticky;
-    left: 0;
 }
 
 table thead th:last-child{
-    position: sticky;
-    right: 0;
     border-left: 1px solid #c7c7c7;
 }
 
@@ -47,15 +43,7 @@ table tbody tr td:first-child{
     max-width: 34px;
     min-width: 34px;
     width: 34px;
-    position: sticky;
-    left: 0;
 }
-
-table tbody tr td:last-child{
-    position: sticky;
-    right: 0;
-}
-
 
 table thead{
     border-bottom: 1px solid #bbb;
@@ -64,6 +52,7 @@ table thead{
 th,td{
     padding-left: 10px;
     padding-right: 10px;
+    position: relative;
 }
 
 td{

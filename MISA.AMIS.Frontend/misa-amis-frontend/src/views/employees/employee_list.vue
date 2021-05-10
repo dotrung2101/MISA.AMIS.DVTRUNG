@@ -5,7 +5,7 @@
                     Nhân viên
                 </div>
                 <div style="flex:1"></div>
-                <button class="btn-primary" v-on:click="showDialog()">Thêm mới nhân viên</button>
+                <button class="btn-primary" v-on:click="showDialog(null)">Thêm mới nhân viên</button>
             </div>
             <div class="container-table">
                 <div class="toolbar-table">
@@ -15,14 +15,15 @@
                         <div class="mi mi-16 mi-search icon-after"></div>
                     </div>
                     <div class="tooltip-content">
-                        <div class="mi mi-24 mi-refresh"></div>
+                        <div class="mi mi-24 mi-refresh" v-on:click="refresh()"></div>
                     </div>
                     <div class="tooltip-content">
                         <div class="mi mi-24 mi-excel-nav"></div>
                     </div>
                     <div style="width: 10px"></div>
                 </div>
-                <table style="width: calc(100% - 30px); margin-left: 10px; margin-right: 0px">
+                <div class="grid">
+                    <table style="width: calc(100% - 30px); margin-left: 10px; margin-right: 0px">
                     <thead>
                         <tr>
                             <th><input type="checkbox"></th>
@@ -52,21 +53,25 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
             <employee-dialog ref="form"/>
+            <confirm-dialog ref="confirm"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import MyDropBox from '../../components/drop_box.vue';
-import EmployeeDialog from './employee_dialog.vue'
+import EmployeeDialog from './employee_dialog.vue';
+import ConfirmDialog from './employee_confirm_dialog.vue';
 
 export default {
     name: "EmployeeList",
     components: {
         MyDropBox,
         EmployeeDialog,
+        ConfirmDialog
     },
     data: function(){
         return {
@@ -93,13 +98,34 @@ export default {
         formatDate(date){
             return date.substring(0,10).split("-").reverse().join("/");
         },
-        showDialog: function(){
-            this.$refs.form.show();
+        showDialog: function(employeeId){
+            console.log(employeeId);
+            this.$refs.form.show(employeeId);
+        },
+        refresh: function(){
+            axios.get("https://localhost:5001/api/v1/employees")
+            .then((response) => {
+                this.employees = response.data;
+                console.log(response);
+            })
+            .catch((response) => {
+                console.log(response);
+            });
+        },
+        showConfirmDialog: function(employeeId){
+            this.$refs.confirm.show(employeeId);
+        },
+        delete: function(employeeId){
+            axios.delete("https://localhost:5001/api/v1/employees/"+employeeId)
+            .then((response) => {
+                console.log(response);
+                this.refresh();
+            })
         }
     },
 
     mounted: function(){
-        axios.get("https://localhost:44315/api/v1/employees")
+        axios.get("https://localhost:5001/api/v1/employees")
         .then((response) => {
             this.employees = response.data;
             console.log(response);
@@ -127,7 +153,6 @@ export default {
 }
 
 .container-table{
-    flex: 1;
     background: #fff;
     margin: 10px 0px;
     padding-top: 10px;
@@ -142,5 +167,14 @@ export default {
 .tooltip-content{
     padding: 0px 6px;
 }
+
+.grid{
+    width: 100%;
+    height: 500px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+
 
 </style>
