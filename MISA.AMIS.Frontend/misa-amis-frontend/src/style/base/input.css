@@ -1,0 +1,58 @@
+input{
+    border: none;
+    border-radius: 2px;
+    height: 32px;
+    color: #000000;
+    padding: 0px 10px;
+    /* padding-left: 16px;
+    padding-right: 16px; */
+    border: 1px solid #babec5;
+    font-family: notosans-regular;
+    outline: none;
+}
+input:hover{
+    border: 1px solid #019160;
+}
+input:focus{
+    border-color: #019160;
+    color: black;
+    font-size: 13px;
+}
+
+
+.ms-input-container{
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    align-items: center;
+    background: #fff;
+    border-radius: 3px;
+    color: #111;
+    margin-right: 15px;
+    height: 34px;
+}
+
+.ms-input:hover{
+    border-width: 2px;
+}
+
+.ms-input{
+    flex: 1;
+    padding-right: 1.75rem;
+    padding-left: .85em;
+    outline: none;
+    border: none;
+    border: 1px solid #ebedf0;
+    height: 32px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.ms-input::placeholder{
+    font-family: notosans-italic;
+}
+.icon-after{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}

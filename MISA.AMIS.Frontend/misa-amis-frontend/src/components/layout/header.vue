@@ -20,6 +20,8 @@
             <div class="mi mi-16 mi-search icon-after"></div>
         </div>
 
+        <div style="flex:1"></div>
+
         <div class="header-button">
             <div class="header-icon mi mi-24 mi-category"></div>
         </div>
@@ -35,7 +37,6 @@
         <div class="header-button">
             <div class="header-icon mi mi-24 mi-bell-nav"></div>
         </div>
-        <div style="flex:1"></div>
         <div class="dialog-action-container" v-bind:class="{active: isToggleMenuUser}">
             <div class="dialog-content" v-on:click="toggleMenuUser()"> 
                 <div class="header-branch-name">Nguyễn Quang Minh</div>
@@ -159,36 +160,6 @@ export default {
     white-space: nowrap;
     transition: all .2s ease;
     color: #111;
-}
-
-.ms-input-container{
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    align-items: center;
-    background: #fff;
-    border-radius: 3px;
-    color: #111;
-    border: 1px solid #ebedf0;
-    margin-right: 15px;
-}
-
-.ms-input{
-    flex: 1;
-    padding-right: 1.75rem;
-    padding-left: .85em;
-    outline: none;
-    border: none;
-    height: 32px;
-}
-.ms-input::placeholder{
-    font-family: notosans-italic;
-}
-.icon-after{
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .header-button{

@@ -1,21 +1,61 @@
 
 table {
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
-table tr{
+table thead tr{
     border-bottom: 1px solid #bbb;
-    height: 48px;
+    height: 34px;
+    font-size: 13px;
+    font-family: notosans-bold;
 }
-
 table thead th{
     text-align: left;
     position: sticky;
     top: 0;
-    background-color: #fff;
-    border-bottom: 1px solid #bbb;
-    box-shadow: 0 1px 1px -1px #bbb;
+    background-color: #eceef1;
+    border-bottom: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    min-width: 100px;
 }
+
+table thead th:first-child{
+    max-width: 34px;
+    min-width: 34px;
+    width: 34px;
+    position: sticky;
+    left: 0;
+}
+
+table thead th:last-child{
+    position: sticky;
+    right: 0;
+    border-left: 1px solid #c7c7c7;
+}
+
+table tbody tr td{
+    border-bottom: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    min-width: 100px;
+    background: #fff;
+    text-align: left;
+    font-size: 12px;
+}
+
+table tbody tr td:first-child{
+    max-width: 34px;
+    min-width: 34px;
+    width: 34px;
+    position: sticky;
+    left: 0;
+}
+
+table tbody tr td:last-child{
+    position: sticky;
+    right: 0;
+}
+
 
 table thead{
     border-bottom: 1px solid #bbb;
@@ -26,6 +66,12 @@ th,td{
     padding-right: 10px;
 }
 
+td{
+    padding: 10px 5px;
+    font-family: notosans-regular;
+    font-size: 13px !important;
+}
+
 th:first-child, th:last-child, td:first-child, td:last-child{
     padding-left: 16px;
 }
@@ -34,7 +80,7 @@ table tr{
     cursor: pointer;
 }
 table tr:hover{
-    background-color: #f0f0f0;
+    background: #f0f0f0;
 }
 
 tr.active{
