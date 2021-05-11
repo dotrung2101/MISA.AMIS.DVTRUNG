@@ -37,6 +37,7 @@ table tbody tr td{
     background: #fff;
     text-align: left;
     font-size: 12px;
+    max-width: 150px;
 }
 
 table tbody tr td:first-child{

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 100%; position: relative">
         <div class="header-di">
                 <div class="title-di">
                     Nhân viên
@@ -54,6 +54,7 @@
                     </tbody>
                 </table>
                 </div>
+                <pagination />
             </div>
             <employee-dialog ref="form"/>
             <confirm-dialog ref="confirm"/>
@@ -65,13 +66,15 @@ import axios from 'axios';
 import MyDropBox from '../../components/drop_box.vue';
 import EmployeeDialog from './employee_dialog.vue';
 import ConfirmDialog from './employee_confirm_dialog.vue';
+import Pagination from '../../components/pagination.vue';
 
 export default {
     name: "EmployeeList",
     components: {
         MyDropBox,
         EmployeeDialog,
-        ConfirmDialog
+        ConfirmDialog,
+        Pagination
     },
     data: function(){
         return {
@@ -96,14 +99,14 @@ export default {
         },
 
         formatDate(date){
-            return date.substring(0,10).split("-").reverse().join("/");
+            return date === null? "Không xác định" : date.substring(0,10).split("-").reverse().join("/");
         },
         showDialog: function(employeeId){
             console.log(employeeId);
             this.$refs.form.show(employeeId);
         },
         refresh: function(){
-            axios.get("https://localhost:5001/api/v1/employees")
+            axios.get("https://localhost:44315/api/v1/employees")
             .then((response) => {
                 this.employees = response.data;
                 console.log(response);
@@ -116,7 +119,7 @@ export default {
             this.$refs.confirm.show(employeeId);
         },
         delete: function(employeeId){
-            axios.delete("https://localhost:5001/api/v1/employees/"+employeeId)
+            axios.delete("https://localhost:44315/api/v1/employees/"+employeeId)
             .then((response) => {
                 console.log(response);
                 this.refresh();
@@ -125,7 +128,7 @@ export default {
     },
 
     mounted: function(){
-        axios.get("https://localhost:5001/api/v1/employees")
+        axios.get("https://localhost:44315/api/v1/employees")
         .then((response) => {
             this.employees = response.data;
             console.log(response);
@@ -156,6 +159,7 @@ export default {
     background: #fff;
     margin: 10px 0px;
     padding-top: 10px;
+    height: calc(100% - 56px);
 }
 
 .toolbar-table{
@@ -170,7 +174,7 @@ export default {
 
 .grid{
     width: 100%;
-    height: 500px;
+    height: calc(100% - 180px);
     overflow-y: auto;
     margin-top: 10px;
 }
