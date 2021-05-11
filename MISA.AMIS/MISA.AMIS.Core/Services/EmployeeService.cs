@@ -32,21 +32,30 @@ namespace MISA.AMIS.Core.Services
             }
         }
 
-        public IEnumerable<Employee> FilterAndGetInRange(int pageIndex, int pageSize, string fullName, Guid? departmentId)
+        public IEnumerable<Employee> FilterAndGetInRange(int pageIndex, int pageSize, string filter)
         {
             if(pageIndex <= 0 || pageSize <= 0)
             {
                 return null;
             }
 
-            if(fullName == null)
+            if(filter == null)
             {
-                fullName = "";
+                filter = "";
             }
 
             int fromIndex = (pageIndex - 1) * pageSize;
 
-            return _employeeRepository.FilterAndGetInRange(fromIndex, pageSize, fullName, departmentId);
+            return _employeeRepository.FilterAndGetInRange(fromIndex, pageSize, filter);
+        }
+
+        public int CountNumberOfEmployeesFilter(string filter)
+        {
+            if (filter == null)
+            {
+                filter = "";
+            }
+            return _employeeRepository.CountNumberOfEmployeesFilter(filter);
         }
     }
 }

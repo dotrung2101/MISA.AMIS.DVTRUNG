@@ -11,7 +11,7 @@
                 <div class="toolbar-table">
                     <div style="flex:1"></div>
                     <div class="ms-input-container">
-                        <input class="ms-input" type="text" placeholder="Tìm theo mã, tên nhân viên">
+                        <input v-on:change="search()" v-model="filter" class="ms-input" type="text" placeholder="Tìm theo mã, tên nhân viên">
                         <div class="mi mi-16 mi-search icon-after"></div>
                     </div>
                     <div class="tooltip-content">
@@ -54,7 +54,12 @@
                     </tbody>
                 </table>
                 </div>
-                <pagination />
+                <pagination :totalPages="totalPage"
+                :totalRecord="totalRecord"
+                :pageSize="pageSize"
+                :page="page" 
+                @onChangePage="onChangePage"
+                @onChangePageSize="onChangePageSize"/>
             </div>
             <employee-dialog ref="form"/>
             <confirm-dialog ref="confirm"/>
@@ -79,6 +84,10 @@ export default {
     data: function(){
         return {
             employees: [],
+            page: 1,
+            pageSize: 20,
+            totalRecord: 0,
+            filter: "",
         }
     },
 
@@ -106,36 +115,57 @@ export default {
             this.$refs.form.show(employeeId);
         },
         refresh: function(){
-            axios.get("https://localhost:44315/api/v1/employees")
-            .then((response) => {
-                this.employees = response.data;
-                console.log(response);
-            })
-            .catch((response) => {
-                console.log(response);
-            });
+            axios.get("https://localhost:5001/api/v1/employees/paging?pageIndex="+this.page+"&pageSize="+this.pageSize+"&filter="+this.filter)
+                .then((response) => {
+                    this.employees = response.data.data;
+                    this.totalRecord = response.data.totalRecords;
+                    console.log(response);
+                })
+                .catch((response) => {
+                    console.log(response);
+                });
         },
         showConfirmDialog: function(employeeId){
             this.$refs.confirm.show(employeeId);
         },
         delete: function(employeeId){
-            axios.delete("https://localhost:44315/api/v1/employees/"+employeeId)
+            axios.delete("https://localhost:5001/api/v1/employees/"+employeeId)
             .then((response) => {
                 console.log(response);
                 this.refresh();
             })
+        },
+        onChangePage(page) {
+            if(page > 0){
+                this.page = page;
+                this.refresh();
+            }
+        },
+        onChangePageSize(pageSize) {
+            this.pageSize = pageSize;
+            this.refresh();
+        },
+        search: function(){
+            this.page = 1;
+            this.refresh();
         }
     },
 
     mounted: function(){
-        axios.get("https://localhost:44315/api/v1/employees")
+        axios.get("https://localhost:5001/api/v1/employees/paging?pageIndex="+this.page+"&pageSize="+this.pageSize+"&filter="+this.filter)
         .then((response) => {
-            this.employees = response.data;
+            this.employees = response.data.data;
+            this.totalRecord = response.data.totalRecords;
             console.log(response);
         })
         .catch((response) => {
             console.log(response);
         });
+    },
+    computed:{
+        totalPage: function(){
+            return Math.ceil(this.totalRecord / this.pageSize);
+        }
     }
 }
 </script>
@@ -174,7 +204,7 @@ export default {
 
 .grid{
     width: 100%;
-    height: calc(100% - 180px);
+    height: calc(100% - 120px);
     overflow-y: auto;
     margin-top: 10px;
 }

@@ -151,7 +151,7 @@ export default {
             if(employeeId != null){
                 this.isLoading = true;
                 this.formMode = 1;
-                axios.get("https://localhost:44315/api/v1/employees/"+employeeId)
+                axios.get("https://localhost:5001/api/v1/employees/"+employeeId)
                 .then((response) => {
                     this.employee = response.data;
                     console.log(this.employee);
@@ -193,7 +193,7 @@ export default {
         submit: function(){
             if(this.formMode == 1){
                 //edit
-                axios.put("https://localhost:44315/api/v1/employees/"+this.employee.employeeId, this.employee)
+                axios.put("https://localhost:5001/api/v1/employees/"+this.employee.employeeId, this.employee)
                 .then((response) => {
                     console.log(response);
                     this.close();
@@ -207,7 +207,7 @@ export default {
                 //insert
                 console.log("INSERT");
                 console.log(JSON.stringify(this.employee));
-                axios.post("https://localhost:44315/api/v1/employees",this.employee)
+                axios.post("https://localhost:5001/api/v1/employees",this.employee)
                 .then((response) => {
                     console.log(response);
                     this.close();
@@ -220,7 +220,7 @@ export default {
         }
     },
     beforeCreate: function(){
-        axios.get("https://localhost:44315/api/v1/departments")
+        axios.get("https://localhost:5001/api/v1/departments")
         .then((response) => {
             this.departments = response.data;
         })

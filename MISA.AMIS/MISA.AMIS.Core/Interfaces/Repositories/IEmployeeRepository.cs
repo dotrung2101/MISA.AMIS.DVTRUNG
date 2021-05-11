@@ -7,6 +7,8 @@ namespace MISA.AMIS.Core.Interfaces.Repositories
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        IEnumerable<Employee> FilterAndGetInRange(int fromIndex, int numberOfRecords, string fullName, Guid? departmentId);
+        IEnumerable<Employee> FilterAndGetInRange(int fromIndex, int numberOfRecords, string filter);
+        int CountNumberOfEmployeesFilter(string filter);
     }
+
 }

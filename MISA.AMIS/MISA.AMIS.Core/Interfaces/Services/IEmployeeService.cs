@@ -7,6 +7,7 @@ namespace MISA.AMIS.Core.Interfaces.Services
 {
     public interface IEmployeeService : IBaseService<Employee>
     {
-        IEnumerable<Employee> FilterAndGetInRange(int pageIndex, int numberOfRecords, string fullName, Guid? departmentId);
+        IEnumerable<Employee> FilterAndGetInRange(int pageIndex, int numberOfRecords, string filter);
+        int CountNumberOfEmployeesFilter(string filter);
     }
 }

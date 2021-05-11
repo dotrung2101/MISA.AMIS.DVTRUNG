@@ -4,7 +4,7 @@ select{
     border-radius: 2px;
     /* color: black; */
     padding: 6px 10px;
-    font-family: GoogleSans-Regular;
+    font-family: notosans-regular;
     cursor: pointer;
 }
 select:hover{

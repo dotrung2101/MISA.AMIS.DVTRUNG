@@ -11,7 +11,23 @@ namespace MISA.AMIS.Infratructure.Repositories
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        public IEnumerable<Employee> FilterAndGetInRange(int fromIndex, int numberOfRecords, string fullName, Guid? departmentId)
+        public int CountNumberOfEmployeesFilter(string filter)
+        {
+            using (_dbConnection = new MySqlConnection(_connectionString))
+            {
+                string sqlCommand = $"Proc_CountNumberOfEmployeesFilter";
+
+                DynamicParameters parameters = new DynamicParameters();
+
+                parameters.Add($"@Filter", filter);
+
+                var numberOfRecords = _dbConnection.QueryFirstOrDefault<int>(sqlCommand, param: parameters, commandType: CommandType.StoredProcedure);
+
+                return numberOfRecords;
+            }
+        }
+
+        public IEnumerable<Employee> FilterAndGetInRange(int fromIndex, int numberOfRecords, string fullName)
         {
 
             using (_dbConnection = new MySqlConnection(_connectionString))
@@ -20,8 +36,7 @@ namespace MISA.AMIS.Infratructure.Repositories
 
                 DynamicParameters parameters = new DynamicParameters();
 
-                parameters.Add($"@fullName", fullName);
-                parameters.Add($"@departmentId", departmentId);
+                parameters.Add($"@filter", fullName);
                 parameters.Add($"@fromIndex", fromIndex);
                 parameters.Add($"@numberOfRecords", numberOfRecords);
 
