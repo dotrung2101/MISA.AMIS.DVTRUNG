@@ -19,6 +19,40 @@ input:focus{
     font-size: 13px;
 }
 
+.validate{
+    border: 1px solid red !important;
+}
+
+.validate-message{
+    display: none;
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 10000;
+    background-color: rgb(214, 94, 81);
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    width: 150px;
+}
+
+.validate-message::before{
+    content: "";
+    background-color: rgb(214, 94, 81);
+    width: 15px;
+    height: 10px;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.validate:hover + .validate-message{
+    display: block;
+}
+
 
 .ms-input-container{
     display: flex;

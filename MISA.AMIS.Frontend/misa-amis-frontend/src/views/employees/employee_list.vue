@@ -18,7 +18,7 @@
                         <div class="mi mi-24 mi-refresh" v-on:click="refresh()"></div>
                     </div>
                     <div class="tooltip-content">
-                        <div class="mi mi-24 mi-excel-nav"></div>
+                        <div class="mi mi-24 mi-excel-nav" v-on:click="exportExcel()"></div>
                     </div>
                     <div style="width: 10px"></div>
                 </div>
@@ -43,7 +43,7 @@
                             <td><input type="checkbox"></td>
                             <td>{{element.employeeCode}}</td>
                             <td>{{element.fullName}}</td>
-                            <td>{{formatGenderName(element.gender)}}</td>
+                            <td>{{element.genderName}}</td>
                             <td>{{formatDate(element.dateOfBirth)}}</td>
                             <td>{{element.identifyNumber}}</td>
                             <td>{{formatDate(element.dateOfIN)}}</td>
@@ -63,6 +63,9 @@
             </div>
             <employee-dialog ref="form"/>
             <confirm-dialog ref="confirm"/>
+            <div class="loading" v-bind:class="{show: isLoading}">
+                <div class="mi mi-24 mi-refresh-blue rotate"></div>
+            </div>
     </div>
 </template>
 
@@ -88,25 +91,11 @@ export default {
             pageSize: 20,
             totalRecord: 0,
             filter: "",
+            isLoading: true,
         }
     },
 
     methods: {
-        formatGenderName(Gender){
-            if(Gender == 1)
-                {
-                    return "Nam";
-                }
-                else if(Gender == 0)
-                {
-                    return "Nữ";
-                }
-                else
-                {
-                    return "Không xác định";
-                }
-        },
-
         formatDate(date){
             return date === null? "Không xác định" : date.substring(0,10).split("-").reverse().join("/");
         },
@@ -115,8 +104,10 @@ export default {
             this.$refs.form.show(employeeId);
         },
         refresh: function(){
+            this.isLoading = true;
             axios.get("https://localhost:5001/api/v1/employees/paging?pageIndex="+this.page+"&pageSize="+this.pageSize+"&filter="+this.filter)
                 .then((response) => {
+                    this.isLoading = false;
                     this.employees = response.data.data;
                     this.totalRecord = response.data.totalRecords;
                     console.log(response);
@@ -148,12 +139,17 @@ export default {
         search: function(){
             this.page = 1;
             this.refresh();
+        },
+        exportExcel: function(){
+            window.open("https://localhost:5001/api/v1/employees/export","_blank")
         }
     },
 
     mounted: function(){
+        this.isLoading = true;
         axios.get("https://localhost:5001/api/v1/employees/paging?pageIndex="+this.page+"&pageSize="+this.pageSize+"&filter="+this.filter)
         .then((response) => {
+            this.isLoading = false;
             this.employees = response.data.data;
             this.totalRecord = response.data.totalRecords;
             console.log(response);
@@ -209,6 +205,19 @@ export default {
     margin-top: 10px;
 }
 
+.loading{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+}
 
+.loading.show{
+    display: block;
+}
 
 </style>

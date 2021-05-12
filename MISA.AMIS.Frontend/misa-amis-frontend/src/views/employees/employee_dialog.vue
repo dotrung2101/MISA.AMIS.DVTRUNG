@@ -13,11 +13,13 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label for="txt-employee-code">Mã <span>*</span></label>
-                        <input v-model="employee.employeeCode" type="text" id="txt-employee-code" style="width: 150px; margin-right: 6px">
+                        <input v-bind:class="{validate: isValidateEmployeeCode}" v-on:input="validateEmployeeCode()" v-model="employee.employeeCode" type="text" id="txt-employee-code" style="width: 150px; margin-right: 6px">
+                        <div class="validate-message">Mã nhân viên không được phép để trống</div>
                     </div>
                     <div class="form-element">
                         <label for="txt-employee-name">Tên <span>*</span></label>
-                        <input v-model="employee.fullName" type="text" id="txt-employee-name" style="width: 240px; margin-right: 26px">
+                        <input v-bind:class="{validate: isValidateFullName}" v-on:input="validateFullName()" v-model="employee.fullName" type="text" id="txt-employee-name" style="width: 240px; margin-right: 26px">
+                        <div class="validate-message">Tên nhân viên không được phép để trống</div>
                     </div>
                     <div class="form-element">
                         <label for="txt-employee-date-of-birth">Ngày sinh</label>
@@ -38,13 +40,15 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label for="cb-department">Đơn vị <span>*</span></label>
-                        <select v-model="employee.departmentId" name="department" id="cb-department" style="width: 440px; margin-right: 26px">
+                        <select v-bind:class="{validate: isValidateDepartment}" v-on:input="validateDepartment()" v-model="employee.departmentId" name="department" id="cb-department" style="width: 440px; margin-right: 26px">
                             <option v-for="department in departments" v-bind:value="department.departmentId" :key="department.departmentId">{{department.departmentName}}</option>
                         </select>
+                        <div class="validate-message">Đơn vị không được phép để trống</div>
                     </div>
                     <div class="form-element">
                         <label>Số CMND</label>
-                        <input v-model="employee.identifyNumber" type="text" id="txt-employee-IN" style="width: 200px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidateIdentifyNumber}" v-on:input="validateIdentifyNumber()" v-model="employee.identifyNumber" type="text" id="txt-employee-IN" style="width: 200px; margin-right: 12px">
+                        <div class="validate-message">{{identifyNumberValidateMessage}}</div>
                     </div>
                     <div class="form-element">
                         <label>Ngày cấp</label>
@@ -72,7 +76,8 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label>ĐT di động</label>
-                        <input v-model="employee.phoneNumber" type="text" style="width: 250px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidatePhoneNumber}" v-on:input="validatePhoneNumber()" v-model="employee.phoneNumber" type="text" style="width: 250px; margin-right: 12px">
+                        <div class="validate-message">{{phoneNumberValidateMessage}}</div>
                     </div>
                     <div class="form-element">
                         <label>ĐT cố định</label>
@@ -80,7 +85,8 @@
                     </div>
                     <div class="form-element">
                         <label>Email</label>
-                        <input v-model="employee.email" type="text" style="width: 250px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidateEmail}" v-on:input="validateEmail()" v-model="employee.email" type="text" style="width: 250px; margin-right: 12px">
+                        <div class="validate-message">{{emailValidateMessage}}</div>
                     </div>
                 </div>
                 <div class="horizontal">
@@ -143,11 +149,26 @@ export default {
             departments: [],
             isLoading: false,
             formMode: 0,
+            isValidateEmployeeCode: false,
+            isValidateFullName: false,
+            isValidateIdentifyNumber: false,
+            isValidatePhoneNumber: false,
+            isValidateEmail: false,
+            isValidateDepartment: false,
+            emailValidateMessage: "Email không được phép để trống",
+            phoneNumberValidateMessage: "Số điện thoại không được phép để trống",
+            identifyNumberValidateMessage: "Số CMND/CC không được phép để trống"
         }
     },
     methods: {
         show: function(employeeId){
             this.isShow = true;
+            this.isValidateEmployeeCode = false;
+            this.isValidateFullName = false;
+            this.isValidateIdentifyNumber = false;
+            this.isValidatePhoneNumber = false;
+            this.isValidateEmail = false;
+            this.isValidateDepartment = false;
             if(employeeId != null){
                 this.isLoading = true;
                 this.formMode = 1;
@@ -217,7 +238,69 @@ export default {
                     console.log(response);
                 })
             }
-        }
+        },
+        validateEmployeeCode: function(){
+            if(this.employee.employeeCode === ""){
+                this.isValidateEmployeeCode = true;
+            }
+            else{
+                this.isValidateEmployeeCode = false;
+            }
+        },
+        validateFullName: function(){
+            if(this.employee.fullName === ""){
+                this.isValidateFullName = true;
+            }
+            else{
+                this.isValidateFullName = false;
+            }
+        },
+        validateDepartment: function(){
+            if(this.employee.departmentId === ""){
+                this.isValidateDepartment = true;
+            }
+            else{
+                this.isValidateDepartment = false;
+            }
+        },
+        validateIdentifyNumber: function(){
+            if(this.employee.identifyNumber === ""){
+                this.isValidateIdentifyNumber = true;
+            }
+            else if(isNaN(this.employee.identifyNumber)){
+                this.identifyNumberValidateMessage = "Số CMND/CC không hợp lệ"
+                this.isValidateIdentifyNumber = true;
+            }
+            else{
+                this.isValidateIdentifyNumber = false;
+            }
+        },
+        validatePhoneNumber: function(){
+            if(this.employee.phoneNumber === ""){
+                this.isValidatePhoneNumber = true;
+            }
+            else if(isNaN(this.employee.phoneNumber)){
+                this.isValidatePhoneNumber = true;
+                this.phoneNumberValidateMessage = "Số điện thoại không hợp lệ"
+            }
+            else{
+                this.isValidatePhoneNumber = false;
+            }
+        },
+        validateEmail: function(){
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            if(this.employee.email === ""){
+                this.isValidateEmail = true;
+            }
+            else if(!re.test(this.employee.email.toLowerCase())){
+                this.isValidateEmail = true;
+                this.emailValidateMessage = "Email không hợp lệ";
+            }
+            else{
+                this.isValidateEmail = false;
+            }
+        },
     },
     beforeCreate: function(){
         axios.get("https://localhost:5001/api/v1/departments")
@@ -227,7 +310,7 @@ export default {
         .catch((response) => {
             console.log(response);
         })
-    }
+    },
 }
 </script>
 
@@ -305,6 +388,7 @@ export default {
 .form-element{
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 label{
     font-size: 12px;
@@ -347,16 +431,5 @@ label span{
     justify-content: center;
     z-index: 1000;
 }
-.rotate{
-    animation: rotate 2s linear infinite;
-}
 
-@keyframes rotate{
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-}
 </style>

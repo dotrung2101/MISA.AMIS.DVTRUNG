@@ -1,6 +1,7 @@
 ﻿using MISA.AMIS.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace MISA.AMIS.Core.Interfaces.Services
@@ -9,5 +10,6 @@ namespace MISA.AMIS.Core.Interfaces.Services
     {
         IEnumerable<Employee> FilterAndGetInRange(int pageIndex, int numberOfRecords, string filter);
         int CountNumberOfEmployeesFilter(string filter);
+        Stream ExportExcel(); 
     }
 }

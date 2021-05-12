@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using MISA.AMIS.Core.Entities;
 using MISA.AMIS.Core.Interfaces.Repositories;
 using MISA.AMIS.Core.Interfaces.Services;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,5 +51,15 @@ namespace MISA.AMIS.API.Controllers
             }
         }
 
+        [HttpGet("export")]
+        public IActionResult Export()
+        {
+            var stream = _employeeService.ExportExcel();
+            string excelName = $"Danh-sach-nhan-vien-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+
+            //return File(stream, "application/octet-stream", excelName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+
+        }
     }
 }

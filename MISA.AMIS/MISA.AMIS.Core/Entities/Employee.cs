@@ -16,6 +16,25 @@ namespace MISA.AMIS.Core.Entities
         public DateTime? DateOfBirth { get; set; }
         public int Gender { get; set; }
 
+        public string GenderName
+        {
+            get
+            {
+                if(Gender == 1)
+                {
+                    return "Nam";
+                }
+                else if(Gender == 2)
+                {
+                    return "Nữ";
+                }
+                else
+                {
+                    return "Không xác định";
+                }
+            }
+        }
+
         [MISARequiredNotNull("Chứng minh thư/Căn cước công dân không được phép để trống!!!")]
         [MISARequiredNotDuplicate("Chứng minh thư/Căn cước công dân đã tồn tại trong hệ thống!!!")]
         public string IdentifyNumber { get; set; }
@@ -33,6 +52,7 @@ namespace MISA.AMIS.Core.Entities
 
         [MISARequiredNotNull("Đơn vị không được phép để trống!!!")]
         public Guid? DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
         public string TaxCode { get; set; }
         public string Address { get; set; }
         public string PhoneStatic { get; set; }
