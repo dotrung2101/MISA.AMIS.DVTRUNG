@@ -17,6 +17,13 @@ namespace MISA.AMIS.API.Controllers
             _baseService = baseService;
         }
 
+        /// <summary>
+        /// Get all records from table
+        /// </summary>
+        /// <returns>
+        ///200: if has more than one record
+        ///204: if has no record
+        /// </returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -36,7 +43,14 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
-
+        /// <summary>
+        /// get record by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///200: if has a record match id
+        ///204: if not
+        /// </returns>
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
@@ -51,7 +65,14 @@ namespace MISA.AMIS.API.Controllers
                 return Ok(entity);
             }
         }
-
+        /// <summary>
+        /// Insert a record to table
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>
+        ///201: if insert succeed
+        ///400: if data is not validate
+        /// </returns>
         [HttpPost]
         public IActionResult Post(MISAEntity entity)
         {
@@ -66,7 +87,15 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
-
+        /// <summary>
+        /// Modify the record has id match id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="entity"></param>
+        /// <returns>
+        ///200: if modify succeed
+        ///400: if data not validate
+        /// </returns>
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, MISAEntity entity)
         {
@@ -81,7 +110,13 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
-
+        /// <summary>
+        /// Delete the record has id match id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        ///200: if delete succeed
+        /// </returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

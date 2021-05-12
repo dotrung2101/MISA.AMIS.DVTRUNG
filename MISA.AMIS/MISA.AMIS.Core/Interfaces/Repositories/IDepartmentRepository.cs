@@ -5,6 +5,10 @@ using System.Text;
 
 namespace MISA.AMIS.Core.Interfaces.Repositories
 {
+    /// <summary>
+    /// Interface Department repository
+    /// </summary>
+    /// CreatedBy: dvtrung
     public interface IDepartmentRepository : IBaseRepository<Department>
     {
     }

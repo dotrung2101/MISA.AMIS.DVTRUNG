@@ -13,12 +13,12 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label for="txt-employee-code">Mã <span>*</span></label>
-                        <input v-bind:class="{validate: isValidateEmployeeCode}" v-on:input="validateEmployeeCode()" v-model="employee.employeeCode" type="text" id="txt-employee-code" style="width: 150px; margin-right: 6px">
+                        <input v-bind:class="{validate: isValidateEmployeeCode}" v-on:focusout="validateEmployeeCode()" v-on:input="validateEmployeeCode()" v-model="employee.employeeCode" type="text" id="txt-employee-code" style="width: 150px; margin-right: 6px">
                         <div class="validate-message">Mã nhân viên không được phép để trống</div>
                     </div>
                     <div class="form-element">
                         <label for="txt-employee-name">Tên <span>*</span></label>
-                        <input v-bind:class="{validate: isValidateFullName}" v-on:input="validateFullName()" v-model="employee.fullName" type="text" id="txt-employee-name" style="width: 240px; margin-right: 26px">
+                        <input v-bind:class="{validate: isValidateFullName}" v-on:focusout="validateFullName()" v-on:input="validateFullName()" v-model="employee.fullName" type="text" id="txt-employee-name" style="width: 240px; margin-right: 26px">
                         <div class="validate-message">Tên nhân viên không được phép để trống</div>
                     </div>
                     <div class="form-element">
@@ -40,14 +40,14 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label for="cb-department">Đơn vị <span>*</span></label>
-                        <select v-bind:class="{validate: isValidateDepartment}" v-on:input="validateDepartment()" v-model="employee.departmentId" name="department" id="cb-department" style="width: 440px; margin-right: 26px">
+                        <select v-bind:class="{validate: isValidateDepartment}" v-on:focusout="validateDepartment()" v-on:input="validateDepartment()" v-model="employee.departmentId" name="department" id="cb-department" style="width: 440px; margin-right: 26px">
                             <option v-for="department in departments" v-bind:value="department.departmentId" :key="department.departmentId">{{department.departmentName}}</option>
                         </select>
                         <div class="validate-message">Đơn vị không được phép để trống</div>
                     </div>
                     <div class="form-element">
                         <label>Số CMND</label>
-                        <input v-bind:class="{validate: isValidateIdentifyNumber}" v-on:input="validateIdentifyNumber()" v-model="employee.identifyNumber" type="text" id="txt-employee-IN" style="width: 200px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidateIdentifyNumber}" v-on:focusout="validateIdentifyNumber()" v-on:input="validateIdentifyNumber()" v-model="employee.identifyNumber" type="text" id="txt-employee-IN" style="width: 200px; margin-right: 12px">
                         <div class="validate-message">{{identifyNumberValidateMessage}}</div>
                     </div>
                     <div class="form-element">
@@ -76,7 +76,7 @@
                 <div class="horizontal">
                     <div class="form-element">
                         <label>ĐT di động</label>
-                        <input v-bind:class="{validate: isValidatePhoneNumber}" v-on:input="validatePhoneNumber()" v-model="employee.phoneNumber" type="text" style="width: 250px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidatePhoneNumber}" v-on:focusout="validatePhoneNumber()" v-on:input="validatePhoneNumber()" v-model="employee.phoneNumber" type="text" style="width: 250px; margin-right: 12px">
                         <div class="validate-message">{{phoneNumberValidateMessage}}</div>
                     </div>
                     <div class="form-element">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="form-element">
                         <label>Email</label>
-                        <input v-bind:class="{validate: isValidateEmail}" v-on:input="validateEmail()" v-model="employee.email" type="text" style="width: 250px; margin-right: 12px">
+                        <input v-bind:class="{validate: isValidateEmail}" v-on:focusout="validateEmail()" v-on:input="validateEmail()" v-model="employee.email" type="text" style="width: 250px; margin-right: 12px">
                         <div class="validate-message">{{emailValidateMessage}}</div>
                     </div>
                 </div>

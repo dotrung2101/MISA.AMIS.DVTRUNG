@@ -26,7 +26,17 @@ namespace MISA.AMIS.API.Controllers
             _employeeService = employeeService;
             _employeeRepository = employeeRepository;
         }
-
+        /// <summary>
+        /// Filt and get employees in range
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="filter"></param>
+        /// <returns>
+        ///200: if has more than one employee
+        ///400: if not
+        /// </returns>
+        /// CreatedBy: dvtrung
         [HttpGet("paging")]
         public IActionResult FilterAndPaging(int pageIndex, int pageSize, string filter)
         {
@@ -50,7 +60,12 @@ namespace MISA.AMIS.API.Controllers
                 });
             }
         }
-
+        /// <summary>
+        /// Get excel file include all employees
+        /// </summary>
+        /// <returns>
+        ///200: if has excel file
+        /// </returns>
         [HttpGet("export")]
         public IActionResult Export()
         {

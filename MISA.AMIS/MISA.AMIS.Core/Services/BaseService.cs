@@ -10,7 +10,7 @@ namespace MISA.AMIS.Core.Services
 {
     public class BaseService<MISAEntity> : IBaseService<MISAEntity> where MISAEntity : class
     {
-
+        
         IBaseRepository<MISAEntity> _baseRepository;
 
         protected List<Object> _listValidate;
@@ -42,6 +42,12 @@ namespace MISA.AMIS.Core.Services
             return _baseRepository.Insert(entity);
         }
 
+        /// <summary>
+        /// Validate post data and add to _listValidate
+        /// Throw EmployeeException if number of validate > 0 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// CreatedBy: dvtrung
         private void ValidateData(MISAEntity entity)
         {
             _listValidate = new List<Object>();
@@ -75,6 +81,8 @@ namespace MISA.AMIS.Core.Services
 
 
             }
+
+            //call to child class
             CustomValidate(entity);
 
             if (_listValidate.Count > 0)
@@ -82,12 +90,22 @@ namespace MISA.AMIS.Core.Services
                 throw new EmployeeException(_listValidate.ToArray());
             }
         }
-
+        /// <summary>
+        /// Child class's validate post data
+        /// </summary>
+        /// <param name="entity"></param>
+        /// CreatedBy: dvtrung
         protected virtual void CustomValidate(MISAEntity entity)
         {
 
         }
-
+        /// <summary>
+        /// Validate put data and add to listValidate
+        /// throw EmployeeException if number of validate > 0
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="id"></param>
+        /// CreatedBy: dvtrung
         private void ValidateData(MISAEntity entity, Guid id)
         {
             _listValidate = new List<Object>();
@@ -124,6 +142,7 @@ namespace MISA.AMIS.Core.Services
 
 
             }
+            //call to child class's validate
             CustomValidate(entity, id);
 
             if (_listValidate.Count > 0)
@@ -132,6 +151,11 @@ namespace MISA.AMIS.Core.Services
             }
         }
 
+        /// <summary>
+        /// Child class's custom validate
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="id"></param>
         protected virtual void CustomValidate(MISAEntity entity, Guid id)
         {
 
